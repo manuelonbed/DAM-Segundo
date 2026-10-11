@@ -1,0 +1,5 @@
+Juan Pérez, 34 años
+Edad: 29
+Ana López (23), Sevilla
+Carlos tiene 41 años.
+Notas: total 300, id 55 (corregir que no salga 55)
