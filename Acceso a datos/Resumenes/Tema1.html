@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;0,900;1,300&family=Instrument+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+<div class="tema t11">
+<div class="tema-header t11">
+  <div class="tema-num">1</div>
+  <div>
+    <div class="tema-kicker">Tema 1</div>
+    <h1 class="tema-title">Tema 1</h1>
+  </div>
+</div>
+<div class="section"><h2 class="section-title section-title">1. Definición y tipos de ficheros</h2><p>Fichero: sucesión de bits que finalmente son almacenados en un determinado dispositivo. Está compuesto por nombre y extensión (indica la tipología del archivo). </p><p>Tipos de fichero:</p><p>•	<strong>De texto (ASCII): </strong>en su interior encontraremos líneas de texto organizadas en código ASCII. Algunos de los ejemplos son: archivos de aplicaciones de ofimática, archivos de programas de los distintos lenguajes de programación, ficheros de imágenes, de video, etc.</p><p>•	<strong>Binarios: </strong>aquellos ficheros cuya información está representada en código binario. Para poder leer dichos ficheros, antes debemos saber cómo fueron escritos para escoger la misma lógica en su lectura. Algunos son .bin, .dat… entre otros.</p><h3 class="subsection-title">1.1. La clase File (Java.io.File)</h3><p>La clase File nos proporciona metodos para crear, modificar, eliminar ficheros, mostrar su información, etc.</p><div class="table-wrap"><table><thead><tr><th><p><strong>Método</strong></p></th><th><p><strong>Descripción</strong></p></th></tr></thead><tbody><tr><td><p>createNewFile()</p></td><td><p>Genera el fichero indicado</p></td></tr><tr><td><p>delete()</p></td><td><p>Borra el fichero</p></td></tr><tr><td><p>mkdirs()</p></td><td><p>Crea el directorio indicado</p></td></tr><tr><td><p>getName()</p></td><td><p>Devuelve un String con el nombre del fichero</p></td></tr><tr><td><p>getPath()</p></td><td><p>Devuelve la ruta relativa</p></td></tr><tr><td><p>getAbsolutePath()</p></td><td><p>Devuelve la ruta absoluta</p></td></tr><tr><td><p>getParent()</p></td><td><p>Devuelve el directorio superior</p></td></tr><tr><td><p>renameTo()</p></td><td><p>Acepta como parámetro un nuevo File, que será la nueva ruta del fichero</p></td></tr><tr><td><p>exists()</p></td><td><p>Comprueba si existe el fichero</p></td></tr><tr><td><p>canWrite()</p></td><td><p>Comprueba si el fichero puede ser escrito</p></td></tr><tr><td><p>canRead()</p></td><td><p>Comprueba si el fichero puede ser leído</p></td></tr><tr><td><p>listFiles()</p></td><td><p>Devuelve un array con los ficheros del directorio indicado</p></td></tr><tr><td><p>lastModified()</p></td><td><p>Devuelve la fecha/hora de la última modificación</p></td></tr></tbody></table></div><h4 class="sub2-title">Tabla 1.Principales métodos de la clase File</h4><div class="code-block"><div class="code-label"><br>Java</div><pre>/**
+ * Mueve un fichero a un directorio destino usando renameTo.
+ * Devuelve true si se movió, false si falló.
+ */
+
+public static boolean moverFichero(String rutaOrigen, String rutaDirectorioDestino) {
+    File origen = new File(rutaOrigen);
+    File destinoDir = new File(rutaDirectorioDestino);
+    if (!destinoDir.exists()) destinoDir.mkdirs();
+    File destino = new File(destinoDir, origen.getName());
+    return origen.renameTo(destino);
+}</pre></div><h4 class="sub2-title">Código 1. Como mover un fichero</h4></div>
+<div class="section"><h2 class="section-title section-title">2. Operaciones de gestión de ficheros. Clases asociadas</h2><div class="table-wrap"><table><thead><tr><th><p><strong>Tipo de acceso</strong></p></th><th><p><strong>Entrada</strong></p></th><th><p><strong>Salida</strong></p></th></tr></thead><tbody><tr><td><p>Basado en caracteres</p></td><td><p>FileReader</p></td><td><p>FileWriter</p></td></tr><tr><td><p>Basado en caracteres (con búfer)</p></td><td><p>BufferedReader</p></td><td><p>BufferedWriter</p></td></tr><tr><td><p>Basado en bytes</p></td><td><p>FileInputStream</p></td><td><p>FileOutputStream</p></td></tr><tr><td><p>Basado en bytes (con búfer)</p></td><td><p>BufferedInputStream</p></td><td><p>BufferedOutputStream</p></td></tr><tr><td><p>Acceso aleatorio</p></td><td><p>RandomAccessFile</p></td><td><p>RandomAccessFile</p></td></tr></tbody></table></div><h4 class="sub2-title">Tabla 2. Algunas clases de métodos de acceso.</h4><h3 class="subsection-title">2.1 Diferencia entre secuencial y directa o aleatoria</h3><p>Los ficheros de acceso secuencial deberán ser recorridos byte a byte o carácter a carácter con el tiempo, procesado de la información, y uso de recursos que esto conllevaría, mientras que, en los ficheros de acceso aleatorio o directo, se establecerá un puntero en bytes, el cual indicará la posición exacta donde vamos a realizar la lectura y/o escritura, y al que se podrá acceder directamente.</p><h3 class="subsection-title">2.2. Acceso secuencial con bytes</h3><p>Nos facilitan la lectura o escritura de un fichero como un “stream” de bytes. Para ello nos apoyaremos en la clase FileInputStream (lectura entrada de datos) y FileOutputStream (escritura salida de datos)". read() devuelve un int con el siguiente byte, o -1 al llegar al final del fichero.</p><h3 class="subsection-title">2.2.1 FileInputStream</h3><p>Esta clase nos facilitará la lectura de los ficheros binarios.</p><div class="code-block"><div class="code-label">Java</div><pre>FileInputStream fis = new FileInputStream("datos.bin");
+int b;
+while ((b = fis.read()) != -1) {   // -1 = fin de fichero
+    System.out.println(b);
+}
+fis.close();</pre></div><h4 class="sub2-title">Código 2.FileInputStream</h4><h3 class="subsection-title">2.2.1 FileOutputStream</h3><p>Esta clase nos facilitará la escritura de ficheros binarios.</p><div class="code-block"><div class="code-label">Java</div><pre>FileOutputStream fos = new FileOutputStream("salida.bin");
+fos.write(65);                   // byte 65 ('A')
+fos.write("Hola".getBytes());    // array de bytes
+fos.close();</pre></div><h4 class="sub2-title">Código 3. FileOutputStream</h4><h3 class="subsection-title">2.3. Acceso secuencial con caracteres</h3><p>FileReader y FileWriter trabajan directamente con caracteres. La lógica es parecida a la de los streams de bytes, pero read() devuelve un int que hay que castear a (char) para mostrarlo.</p><p>FileWriter crea el fichero si no existe y lo <strong>sobrescribe</strong> si ya existe. </p><h3 class="subsection-title">2.3.1 FileReader</h3><p>Esta clase nos facilitará la lectura de los ficheros de caracteres.</p><div class="code-block"><div class="code-label">Java</div><pre>FileReader fr = new FileReader("pruebas2.txt");
+int c;
+while ((c = fr.read()) != -1) {
+    System.out.print((char) c);    // casting a char
+}
+fr.close();</pre></div><h4 class="sub2-title">Código 4. FileReader</h4><h3 class="subsection-title">2.3.2 FileWriter</h3><p>Esta clase nos facilitará la escritura de ficheros de caracteres.</p><div class="code-block"><div class="code-label">Java</div><pre>FileWriter fw = new FileWriter("pruebas2.txt");   // sobrescribe
+fw.write("Hola mundo");
+fw.close();
+// Para añadir al final en vez de sobrescribir: new FileWriter("pruebas2.txt", true)</pre></div><h4 class="sub2-title">Código 5. FileWriter</h4><h3 class="subsection-title">2.4. Acceso aleatorio: RandomAccessFile</h3><p>Permite leer y escribir en cualquier posición del fichero.</p><p>Modos de acceso (segundo parámetro del constructor):</p><ul><li>"r": solo lectura. Escribir lanza IOException.</li><li>"rw": lectura y escritura.</li><li>"rwd": lectura y escritura síncronas del contenido. Se escribirán todas las actualizaciones del contenido del fichero.</li><li>"rws": como rwd, y además escribe los metadatos.</li></ul><p>El constructor de RandomAcessFile acepta un File o un String con la ruta y como segundo parámetro el modo de acceso. El método seek(long) posiciona el puntero y el método getFilePointer() devuelve su posición en bytes, como long.</p><div class="code-block"><pre>RandomAccessFile raf = new RandomAccessFile("datos.dat", "r");
+raf.seek(5);                                  // puntero en el byte 5
+System.out.println(raf.getFilePointer());     // 5
+int b = raf.read();                           // lee el byte 5 y avanza el puntero
+System.out.println((char) b);
+System.out.println(raf.getFilePointer());     // 6
+raf.close();</pre></div><h4 class="sub2-title">Código 6. RandomAccessFile, lectura acceso aleatorio y seek()/getFilePointer()</h4></div>
+<div class="section"><h2 class="section-title section-title">3. Operaciones con buffer</h2><p>Las clases BufferedInputStream, BufferedOutputStream, BufferedReader y BufferedWriter permiten leer y escribir con mejor rendimiento que FileInputStream o FileOutputStream, porque usan un buffer: un espacio temporal en memoria donde se almacenan bloques completos de bytes en lugar de acceder al disco byte a byte. Cada vez que se agota la información del buffer, se carga el siguiente bloque. Como el acceso a memoria es mucho más rápido que el acceso a disco, se reducen los accesos al disco y el rendimiento mejora notablemente. </p><p>Utiliza las clases base de esta forma:</p><div class="code-block"><pre>BufferedInputStream bis = new BufferedInputStream(new FileInputStream("datos.bin")</pre></div></div>
+</div>
+</main>
+</body>
+</html>

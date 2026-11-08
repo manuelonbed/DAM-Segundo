@@ -1,0 +1,13 @@
+# Mammoth style mappings for code blocks.
+#
+p[style-name='Heading 1'] => h1.tema-title:fresh
+p[style-name='Heading 2'] => h2.section-title:fresh
+p[style-name='Heading 3'] => h3.subsection-title:fresh
+p[style-name='Heading 4'] => h4.sub2-title:fresh
+
+p[style-name='Caption'] => p.caption:fresh
+
+p[style-name='Code Label'] => div.code-block:fresh > div.code-label
+p[style-name='Code'] => div.code-block > pre:separator('\n')
+
+r[style-name='Inline Code'] => code
